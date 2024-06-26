@@ -2,6 +2,12 @@ package com.itheima.book.mapper;
 
 
 import com.itheima.book.entity.Author;
+import com.itheima.book.mapper.sql.AuthorMapperSQL;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
+
+import java.util.List;
 
 /**
 * @author san qian
@@ -10,8 +16,10 @@ import com.itheima.book.entity.Author;
 * @Entity com.itheima.book.entity.Author
 */
 public interface AuthorMapper {
+    @SelectProvider(type = AuthorMapperSQL.class, method = "selectByAuthor")
+    List<Author> selectByAuthor(String name);
 
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Author record);
 
@@ -22,5 +30,6 @@ public interface AuthorMapper {
     int updateByPrimaryKeySelective(Author record);
 
     int updateByPrimaryKey(Author record);
-
+    @Delete("delete from author where name=#{name}")
+    void deleteByName(String author);
 }

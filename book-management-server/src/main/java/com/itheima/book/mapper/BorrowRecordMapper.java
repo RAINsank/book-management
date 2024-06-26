@@ -1,6 +1,9 @@
 package com.itheima.book.mapper;
 
+import com.itheima.book.dto.RecordDto;
 import com.itheima.book.entity.BorrowRecord;
+import com.itheima.book.mapper.sql.BorrowRecordMapperSQL;
+import org.apache.ibatis.annotations.InsertProvider;
 
 /**
 * @author san qian
@@ -21,5 +24,6 @@ public interface BorrowRecordMapper {
     int updateByPrimaryKeySelective(BorrowRecord record);
 
     int updateByPrimaryKey(BorrowRecord record);
-
+    @InsertProvider(type = BorrowRecordMapperSQL.class, method = "borrowBooks")
+    void borrowBooks(RecordDto dto);
 }

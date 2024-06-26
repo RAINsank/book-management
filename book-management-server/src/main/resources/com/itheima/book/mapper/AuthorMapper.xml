@@ -20,7 +20,7 @@
         where  id = #{id,jdbcType=INTEGER} 
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from author
         where  id = #{id,jdbcType=INTEGER} 
     </delete>

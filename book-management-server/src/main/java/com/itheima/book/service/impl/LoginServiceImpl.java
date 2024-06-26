@@ -1,6 +1,7 @@
 package com.itheima.book.service.impl;
 
 import com.itheima.book.dto.LoginDto;
+import com.itheima.book.dto.UserAddDto;
 import com.itheima.book.entity.User;
 import com.itheima.book.enums.CodeEnum;
 import com.itheima.book.exception.Exceptions;
@@ -37,5 +38,17 @@ public class LoginServiceImpl implements LoginService {
                 username(user.getUsername()).
                 build();
         return vo;
+    }
+
+    @Override
+    public void add(UserAddDto dto) {
+        if(ObjectUtils.isEmpty(dto)||ObjectUtils.isEmpty(dto.getUsername())||ObjectUtils.isEmpty(dto.getPassword())){
+            Exceptions.cast(CodeEnum.DATA_ERROR);
+        }
+        User user1 = User.builder().
+                username(dto.getUsername()).
+                password(dto.getPassword()).
+                build();
+        userMapper.insert(user1);
     }
 }

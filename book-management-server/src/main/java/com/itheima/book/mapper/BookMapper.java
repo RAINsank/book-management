@@ -1,6 +1,11 @@
 package com.itheima.book.mapper;
 
 import com.itheima.book.entity.Book;
+import com.itheima.book.mapper.sql.BookMapperSQL;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
+
+import java.util.List;
 
 /**
 * @author san qian
@@ -16,10 +21,11 @@ public interface BookMapper {
 
     int insertSelective(Book record);
 
-    Book selectByPrimaryKey(Long id);
+    Book selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(Book record);
 
     int updateByPrimaryKey(Book record);
-
+    @SelectProvider(type = BookMapperSQL.class, method = "selectByName")
+    List<Book> selectByName(String name);
 }

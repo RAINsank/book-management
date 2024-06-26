@@ -2,6 +2,8 @@ package com.itheima.book.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -9,6 +11,7 @@ import lombok.Data;
  * @TableName book
  */
 @Data
+@Builder
 public class Book implements Serializable {
     /**
      * 图书ID
