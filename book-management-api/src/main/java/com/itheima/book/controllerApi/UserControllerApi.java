@@ -19,7 +19,7 @@ public interface UserControllerApi {
     //还书
     @PutMapping("/{id}")
     ResponseResult returnBook(@PathVariable("id") Integer id);
-
+    //获取书籍列表
     @GetMapping()
     ResponseResult<List<Book>>getBook();
 

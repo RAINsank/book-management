@@ -3,6 +3,7 @@ package com.itheima.book.mapper;
 import com.itheima.book.dto.RecordDto;
 import com.itheima.book.entity.BorrowRecord;
 import com.itheima.book.mapper.sql.BorrowRecordMapperSQL;
+import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.InsertProvider;
 
 /**
@@ -26,4 +27,6 @@ public interface BorrowRecordMapper {
     int updateByPrimaryKey(BorrowRecord record);
     @InsertProvider(type = BorrowRecordMapperSQL.class, method = "borrowBooks")
     void borrowBooks(RecordDto dto);
+    @DeleteProvider(type = BorrowRecordMapperSQL.class, method = "deleteBytimer")
+    void deleteBytimer();
 }

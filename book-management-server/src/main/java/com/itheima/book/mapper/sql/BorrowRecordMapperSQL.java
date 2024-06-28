@@ -2,6 +2,7 @@ package com.itheima.book.mapper.sql;
 
 import com.itheima.book.dto.RecordDto;
 import com.itheima.book.entity.BorrowRecord;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.util.Arrays;
 
@@ -26,6 +27,12 @@ public class BorrowRecordMapperSQL {
             }
         }
 
+        return sql.toString();
+    }
+    public String deleteBytimer(){
+        StringBuilder sql = new StringBuilder();
+        sql.append("DELETE FROM borrow_record\n" +
+                "WHERE return_date < DATE_FORMAT(NOW() ,'%Y-%m-01');");
         return sql.toString();
     }
 }
