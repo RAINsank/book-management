@@ -1,8 +1,11 @@
 package com.itheima.book.controllerApi;
 
+import com.itheima.book.entity.Book;
 import com.itheima.book.response.ResponseResult;
 import com.itheima.book.vo.BookVo;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author san qian
@@ -16,5 +19,8 @@ public interface UserControllerApi {
     //还书
     @PutMapping("/{id}")
     ResponseResult returnBook(@PathVariable("id") Integer id);
+
+    @GetMapping()
+    ResponseResult<List<Book>>getBook();
 
 }

@@ -28,4 +28,5 @@ public interface BookMapper {
     int updateByPrimaryKey(Book record);
     @SelectProvider(type = BookMapperSQL.class, method = "selectByName")
     List<Book> selectByName(String name);
+    List<Book> selectAll();
 }

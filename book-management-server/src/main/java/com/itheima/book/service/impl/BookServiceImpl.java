@@ -9,8 +9,10 @@ import com.itheima.book.exception.Exceptions;
 import com.itheima.book.mapper.AuthorMapper;
 import com.itheima.book.mapper.BookMapper;
 import com.itheima.book.service.BookService;
+import com.itheima.book.util.RedisUtil;
 import com.itheima.book.util.StringUtil;
 import com.itheima.book.vo.BookVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -29,10 +31,13 @@ public class BookServiceImpl implements BookService {
     BookMapper bookMapper;
     final
     AuthorMapper authorMapper;
+    final
+    RedisUtil redisUtil;
 
-    public BookServiceImpl(BookMapper bookMapper, AuthorMapper authorMapper) {
+    public BookServiceImpl(BookMapper bookMapper, AuthorMapper authorMapper, RedisUtil redisUtil) {
         this.bookMapper = bookMapper;
         this.authorMapper = authorMapper;
+        this.redisUtil = redisUtil;
     }
 
     @Override
@@ -53,6 +58,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void addBook(Bookdto dto) {
+        redisUtil.deleteBooks();
         if (ObjectUtils.isEmpty(dto)||StringUtil.isNullOrEmpty(dto.getName())||StringUtil.isNullOrEmpty(dto.getAuthor())) {
             Exceptions.cast(CodeEnum.DATA_ERROR);
         }
@@ -70,11 +76,15 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteBook(Long id) {
+        redisUtil.deleteBooks();
+
         bookMapper.deleteByPrimaryKey(id);
     }
 
     @Override
     public void UpdateBook(BookUpdatedto dto) {
+        redisUtil.deleteBooks();
+
         if (ObjectUtils.isEmpty(dto)||StringUtil.isNullOrEmpty(dto.getName())) {
             Exceptions.cast(CodeEnum.DATA_ERROR);
         }

@@ -23,6 +23,11 @@
         from book
         where  id = #{id,jdbcType=INTEGER} 
     </select>
+    <select id="selectAll" resultType="com.itheima.book.entity.Book">
+        select
+        <include refid="Base_Column_List" />
+            from book
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from book
